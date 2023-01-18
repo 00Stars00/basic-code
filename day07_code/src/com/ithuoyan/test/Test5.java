@@ -2,6 +2,9 @@ package com.ithuoyan.test;
 
 import java.util.Random;
 
+/**
+ * 练习5
+ */
 public class Test5 {
     public static void main(String[] args) {
         int[] scoresArr = getScores();
@@ -12,6 +15,10 @@ public class Test5 {
         System.out.println("选手的最终得分是："+avg);
     }
 
+    /**
+     * 生成数据
+     * @return 评分数组
+     */
     public static int[] getScores(){
         int[] scores = new int[6];
         Random random = new Random();
@@ -24,6 +31,11 @@ public class Test5 {
         return scores;
     }
 
+    /**
+     * 求最大值
+     * @param scoreArr 评分数组
+     * @return 最大值
+     */
     public static int getMax(int[] scoreArr){
         int max=scoreArr[0];
         for (int j : scoreArr) {
@@ -34,6 +46,11 @@ public class Test5 {
         return max;
     }
 
+    /**
+     * 求最小值
+     * @param scoreArr 评分数组
+     * @return 最小值
+     */
     public static int getMin(int[] scoreArr){
         int min=scoreArr[0];
         for (int j : scoreArr) {
@@ -44,6 +61,11 @@ public class Test5 {
         return min;
     }
 
+    /**
+     * 求和
+     * @param scoreArr 评分数组
+     * @return 总和
+     */
     public static int getSum(int[] scoreArr) {
         int sum=0;
         for (int j : scoreArr) {
