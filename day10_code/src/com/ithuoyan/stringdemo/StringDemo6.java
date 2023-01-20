@@ -11,7 +11,7 @@ public class StringDemo6 {
         int bigCount = 0;
         int smallCount = 0;
         int numberCount = 0;
-
+        int otherCount = 0;
         for (int i = 0; i < line.length(); i++) {
             char ch = line.charAt(i);
             if (ch >= 'A' && ch <= 'Z') {
@@ -20,10 +20,13 @@ public class StringDemo6 {
                 smallCount++;
             } else if (ch >= '0' && ch <= '9') {
                 numberCount++;
+            } else {
+                otherCount++;
             }
         }
         System.out.println("大写字母个数：" + bigCount);
         System.out.println("小写字母个数：" + smallCount);
         System.out.println("数字个数：" + numberCount);
+        System.out.println("其他字符个数：" + otherCount);
     }
 }
