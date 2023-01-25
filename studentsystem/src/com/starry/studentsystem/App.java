@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class App {
     /**
      * 主方法
+     *
      * @param args 参数
      */
     public static void main(String[] args) {
@@ -35,12 +36,66 @@ public class App {
     }
 
 
+    /**
+     * 重置密码
+     * @param users 用户集合
+     */
     private static void forgetPassword(ArrayList<User> users) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入用户名：");
+        String username = scanner.next();
+        if (!contains(users, username)) {
+            System.out.println("用户名" + username + "不存在");
+            return;
+        }
+
+        System.out.println("请输入身份证号：");
+        String personID = scanner.next();
+        System.out.println("请输入手机号：");
+        String phoneNumber = scanner.next();
+
+        int index = findIndex(users, username);
+        User user = users.get(index);
+        if (!(user.getPersonID().equalsIgnoreCase(personID) && user.getPhoneNumber().equals(phoneNumber))) {
+            System.out.println("身份证号或手机号不正确");
+            return;
+        }
+
+        while (true) {
+            System.out.println("请输入新密码：");
+            String password = scanner.next();
+            System.out.println("请再次输入新密码：");
+            String againPassword = scanner.next();
+            if (!password.equals(againPassword)) {
+                System.out.println("两次输入的密码不一致,请重新输入");
+                continue;
+            } else {
+                user.setPassword(password);
+                System.out.println("密码修改成功");
+                break;
+            }
+        }
 
     }
 
     /**
+     * 获取用户名在集合中的索引
+     * @param users 用户集合
+     * @param username 用户名
+     * @return 用户名在集合中的索引
+     */
+    private static int findIndex(ArrayList<User> users, String username) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * 注册
+     *
      * @param users 用户集合
      */
     private static void register(ArrayList<User> users) {
@@ -115,6 +170,7 @@ public class App {
 
     /**
      * 打印用户信息
+     *
      * @param users 用户集合
      */
     private static void printUsers(ArrayList<User> users) {
@@ -128,6 +184,7 @@ public class App {
 
     /**
      * 判断手机号码是否合法
+     *
      * @param phoneNumber 手机号码
      * @return 是否合法
      */
@@ -150,6 +207,7 @@ public class App {
 
     /**
      * 判断身份证号是否合法
+     *
      * @param personID 身份证号
      * @return 是否合法
      */
@@ -175,7 +233,8 @@ public class App {
 
     /**
      * 判断用户名是否存在
-     * @param users 用户集合
+     *
+     * @param users    用户集合
      * @param username 用户名
      * @return 是否存在
      */
@@ -190,6 +249,7 @@ public class App {
 
     /**
      * 判断用户名是否合法
+     *
      * @param username 用户名
      * @return 是否合法
      */
@@ -220,6 +280,7 @@ public class App {
 
     /**
      * 登录
+     *
      * @param users 用户集合
      */
     private static void login(ArrayList<User> users) {
@@ -270,7 +331,8 @@ public class App {
 
     /**
      * 判断用户信息是否正确
-     * @param users 用户集合
+     *
+     * @param users    用户集合
      * @param userInfo 用户信息
      * @return 是否正确
      */
@@ -285,6 +347,7 @@ public class App {
 
     /**
      * 形成验证码
+     *
      * @return 验证码
      */
     private static String getCode() {
