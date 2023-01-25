@@ -314,6 +314,8 @@ public class App {
             User userInfo = new User(username, password, null, null);
             if (checkUserInfo(users, userInfo)) {
                 System.out.println("登录成功");
+                StudentSystem studentSystem = new StudentSystem();
+                StudentSystem.startStudentSystem();
                 break;
             } else {
                 if (count == 2) {

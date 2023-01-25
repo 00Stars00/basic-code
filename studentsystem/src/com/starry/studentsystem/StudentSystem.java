@@ -7,11 +7,11 @@ import java.util.Scanner;
  * 学生管理系统
  */
 public class StudentSystem {
+
     /**
-     * 主方法
-     * @param args 参数
+     * 学生管理系统入口
      */
-    public static void main(String[] args) {
+    public static void startStudentSystem() {
         ArrayList<Student> students = new ArrayList<>();
         while (true) {
             System.out.println("-----------------欢迎来到星空学生管理系统-----------------");
