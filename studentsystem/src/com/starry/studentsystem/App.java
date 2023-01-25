@@ -1,6 +1,7 @@
 package com.starry.studentsystem;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -9,7 +10,6 @@ import java.util.Scanner;
 public class App {
     /**
      * 主方法
-     *
      * @param args 参数
      */
     public static void main(String[] args) {
@@ -41,6 +41,7 @@ public class App {
 
     /**
      * 注册
+     * @param users 用户集合
      */
     private static void register(ArrayList<User> users) {
         Scanner scanner = new Scanner(System.in);
@@ -112,7 +113,10 @@ public class App {
 
     }
 
-
+    /**
+     * 打印用户信息
+     * @param users 用户集合
+     */
     private static void printUsers(ArrayList<User> users) {
         for (User user : users) {
             System.out.println("用户名：" + user.getUsername());
@@ -122,6 +126,11 @@ public class App {
         }
     }
 
+    /**
+     * 判断手机号码是否合法
+     * @param phoneNumber 手机号码
+     * @return 是否合法
+     */
     private static boolean checkPhoneNumber(String phoneNumber) {
         int length = phoneNumber.length();
         if (length != 11) {
@@ -139,6 +148,11 @@ public class App {
         return true;
     }
 
+    /**
+     * 判断身份证号是否合法
+     * @param personID 身份证号
+     * @return 是否合法
+     */
     private static boolean checkPersonID(String personID) {
         int length = personID.length();
         if (length != 18) {
@@ -159,6 +173,12 @@ public class App {
         return personID.charAt(17) == 'X' || personID.charAt(17) == 'x' || (personID.charAt(17) >= '0' && personID.charAt(17) <= '9');
     }
 
+    /**
+     * 判断用户名是否存在
+     * @param users 用户集合
+     * @param username 用户名
+     * @return 是否存在
+     */
     private static boolean contains(ArrayList<User> users, String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -168,6 +188,11 @@ public class App {
         return false;
     }
 
+    /**
+     * 判断用户名是否合法
+     * @param username 用户名
+     * @return 是否合法
+     */
     private static boolean checkUsername(String username) {
 
         int length = username.length();
@@ -193,8 +218,101 @@ public class App {
         return count >= 1;
     }
 
-
+    /**
+     * 登录
+     * @param users 用户集合
+     */
     private static void login(ArrayList<User> users) {
+        Scanner scanner = new Scanner(System.in);
 
+        int count = 0;
+        while (true) {
+            System.out.println("请输入用户名：");
+            String username = scanner.next();
+            if (!contains(users, username)) {
+                System.out.println("用户名" + username + "不存在,请先注册再登录");
+                return;
+            }
+            System.out.println("请输入密码：");
+            String password = scanner.next();
+
+            while (true) {
+                System.out.println("请输入验证码：");
+                String code = getCode();
+                System.out.println("验证码：" + code);
+                String inputCode = scanner.next();
+                if (!code.equalsIgnoreCase(inputCode)) {
+                    System.out.println("验证码错误");
+                    continue;
+                } else {
+                    System.out.println("验证码正确");
+                    break;
+                }
+            }
+
+            User userInfo = new User(username, password, null, null);
+            if (checkUserInfo(users, userInfo)) {
+                System.out.println("登录成功");
+                break;
+            } else {
+                if (count == 2) {
+                    System.out.println("登录失败次数过多，程序退出");
+                    return;
+                } else {
+                    System.out.println("登录失败,用户名或密码错误,还有" + (2 - count) + "次机会");
+                }
+            }
+            count++;
+        }
+
+
+    }
+
+    /**
+     * 判断用户信息是否正确
+     * @param users 用户集合
+     * @param userInfo 用户信息
+     * @return 是否正确
+     */
+    private static boolean checkUserInfo(ArrayList<User> users, User userInfo) {
+        for (User user : users) {
+            if (user.getUsername().equals(userInfo.getUsername()) && user.getPassword().equals(userInfo.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 形成验证码
+     * @return 验证码
+     */
+    private static String getCode() {
+        ArrayList<Character> list = new ArrayList<Character>();
+        for (int i = 0; i < 26; i++) {
+            list.add((char) ('a' + i));
+            list.add((char) ('A' + i));
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            int index = random.nextInt(list.size());
+            char c = list.get(index);
+            stringBuilder.append(c);
+        }
+
+        int number = random.nextInt(10);
+        stringBuilder.append(number);
+
+        char[] chars = stringBuilder.toString().toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            int index = random.nextInt(chars.length);
+            char temp = chars[i];
+            chars[i] = chars[index];
+            chars[index] = temp;
+        }
+
+        return new String(chars);
     }
 }
