@@ -14,6 +14,9 @@ public class GameJFrame extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * 初始化菜单栏
+     */
     private void initJMenuBar() {
         // 初始化菜单栏
         JMenuBar jMenuBar = new JMenuBar();
@@ -45,6 +48,9 @@ public class GameJFrame extends JFrame {
 
     }
 
+    /**
+     * 初始化窗口
+     */
     private void initJFrame() {
         // 设置窗口大小
         this.setSize(603,680);
