@@ -1,11 +1,17 @@
 package com.start.ui;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GameJFrame extends JFrame {
+public class GameJFrame extends JFrame implements KeyListener {
     // 数据
     int[][] data = new int[4][4];
+    // 空白块的位置
+    int x = 0;
+    int y = 0;
 
     public GameJFrame() {
         // 初始化窗口
@@ -13,7 +19,7 @@ public class GameJFrame extends JFrame {
 
         // 初始化菜单
         initJMenuBar();
-        
+
         // 初始化数据
         initData();
 
@@ -38,7 +44,12 @@ public class GameJFrame extends JFrame {
         }
 
         for (int i = 0; i < arr.length; i++) {
-            data[i / 4][i % 4] = arr[i];
+            if (arr[i] == 0) {
+                x = i / 4;
+                y = i % 4;
+            } else {
+                data[i / 4][i % 4] = arr[i];
+            }
         }
     }
 
@@ -46,6 +57,8 @@ public class GameJFrame extends JFrame {
      * 初始化图片
      */
     private void initImage() {
+        // 清空窗口
+        this.removeAll();
         // 外循环---行
         for (int i = 0; i < 4; i++) {
             // 内循环---列
@@ -54,11 +67,21 @@ public class GameJFrame extends JFrame {
                 int number = data[i][j];
                 JLabel jLabel = new JLabel(new ImageIcon("puzzle-game/image/animal/animal8/" + number + ".jpg"));
                 // 设置标签位置
-                jLabel.setBounds(j * 105, i * 105, 105, 105);
+                jLabel.setBounds(j * 105 + 84, i * 105 + 134, 105, 105);
+                // 添加图片边框
+                jLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
                 // 添加标签
                 this.add(jLabel);
             }
         }
+        // 初始化背景图片
+        JLabel background = new JLabel(new ImageIcon("puzzle-game/image/background.png"));
+        // 设置背景图片位置
+        background.setBounds(40, 40, 508, 560);
+        // 添加背景图片
+        this.add(background);
+        // 重新绘制窗口
+        this.repaint();
     }
 
     /**
@@ -116,5 +139,66 @@ public class GameJFrame extends JFrame {
 
         // 设置窗口布局
         this.setLayout(null);
+
+        // 添加键盘监听
+        this.addKeyListener(this);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // 获取按键
+        int keyCode = e.getKeyCode();
+        // 判断按键
+        switch (keyCode) {
+            case KeyEvent.VK_UP -> {
+                // 上
+                System.out.println("上");
+                if (x < 3) {
+                    data[x][y] = data[x + 1][y];
+                    data[x + 1][y] = 0;
+                    x++;
+                    initImage();
+                }
+            }
+            case KeyEvent.VK_DOWN -> {
+                // 下
+                System.out.println("下");
+                if (x > 0) {
+                    data[x][y] = data[x - 1][y];
+                    data[x - 1][y] = 0;
+                    x--;
+                }
+            }
+            case KeyEvent.VK_LEFT -> {
+                // 左
+                System.out.println("左");
+                if (y < 3) {
+                    data[x][y] = data[x][y + 1];
+                    data[x][y + 1] = 0;
+                    y++;
+                }
+            }
+            case KeyEvent.VK_RIGHT -> {
+                // 右
+                System.out.println("右");
+                if (y > 0) {
+                    data[x][y] = data[x][y - 1];
+                    data[x][y - 1] = 0;
+                    y--;
+                }
+            }
+        }
+        // 重绘
+        //this.repaint();
     }
 }
