@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class GameJFrame extends JFrame {
     public GameJFrame() {
+
         // 设置窗口大小
         this.setSize(603,680);
 
