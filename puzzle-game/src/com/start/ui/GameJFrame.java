@@ -22,10 +22,15 @@ public class GameJFrame extends JFrame {
      */
     private void initImage() {
         // 初始化图片
-        ImageIcon imageIcon = new ImageIcon("puzzle-game/image/animal/animal3/3.jpg");
+        ImageIcon imageIcon = new ImageIcon("puzzle-game/image/animal/animal3/1.jpg");
 
         // 初始化标签
         JLabel jLabel = new JLabel(imageIcon);
+
+        // 设置标签大小
+
+        // 设置标签位置
+        jLabel.setBounds(0,0,105,105);
 
         // 添加标签
         this.add(jLabel);
@@ -83,5 +88,8 @@ public class GameJFrame extends JFrame {
 
         // 设置窗口关闭时退出程序
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // 设置窗口布局
+        this.setLayout(null);
     }
 }
