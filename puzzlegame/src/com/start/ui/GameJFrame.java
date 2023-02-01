@@ -4,7 +4,48 @@ import javax.swing.*;
 
 public class GameJFrame extends JFrame {
     public GameJFrame() {
+        // 初始化窗口
+        initJFrame();
 
+        // 初始化菜单
+        initJMenuBar();
+
+        // 设置窗口可见
+        this.setVisible(true);
+    }
+
+    private void initJMenuBar() {
+        // 初始化菜单栏
+        JMenuBar jMenuBar = new JMenuBar();
+
+        // 初始化菜单
+        JMenu functionMenu = new JMenu("功能");
+        JMenu aboutMenu = new JMenu("关于");
+
+        // 初始化菜单项
+        JMenuItem replayItem = new JMenuItem("重新开始");
+        JMenuItem reLoginItem = new JMenuItem("重新登陆");
+        JMenuItem exitItem = new JMenuItem("退出");
+
+        JMenuItem aboutItem = new JMenuItem("关于");
+
+        // 添加菜单项
+        functionMenu.add(replayItem);
+        functionMenu.add(reLoginItem);
+        functionMenu.add(exitItem);
+
+        aboutMenu.add(aboutItem);
+
+        // 添加菜单
+        this.add(functionMenu);
+        this.add(aboutMenu);
+
+        // 添加菜单栏
+        this.setJMenuBar(jMenuBar);
+
+    }
+
+    private void initJFrame() {
         // 设置窗口大小
         this.setSize(603,680);
 
@@ -19,8 +60,5 @@ public class GameJFrame extends JFrame {
 
         // 设置窗口关闭时退出程序
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // 设置窗口可见
-        this.setVisible(true);
     }
 }
