@@ -21,19 +21,20 @@ public class GameJFrame extends JFrame {
      * 初始化图片
      */
     private void initImage() {
-        // 初始化图片
-        ImageIcon imageIcon = new ImageIcon("puzzle-game/image/animal/animal3/1.jpg");
-
-        // 初始化标签
-        JLabel jLabel = new JLabel(imageIcon);
-
-        // 设置标签大小
-
-        // 设置标签位置
-        jLabel.setBounds(0,0,105,105);
-
-        // 添加标签
-        this.add(jLabel);
+        int number = 1;
+        // 外循环---行
+        for (int i = 0; i < 4; i++) {
+            // 内循环---列
+            for (int j = 0; j < 4; j++) {
+                // 初始化标签
+                JLabel jLabel = new JLabel(new ImageIcon("puzzle-game/image/animal/animal/" + number + ".jpg"));
+                // 设置标签位置
+                jLabel.setBounds(j * 105, i * 105, 105, 105);
+                // 添加标签
+                this.add(jLabel);
+                number++;
+            }
+        }
     }
 
     /**
@@ -75,7 +76,7 @@ public class GameJFrame extends JFrame {
      */
     private void initJFrame() {
         // 设置窗口大小
-        this.setSize(603,680);
+        this.setSize(603, 680);
 
         // 设置窗口标题
         this.setTitle("拼图游戏单机版 V1.0");
