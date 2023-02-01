@@ -1,14 +1,21 @@
 package com.start.ui;
 
 import javax.swing.*;
+import java.util.Random;
 
 public class GameJFrame extends JFrame {
+    // 数据
+    int[][] data = new int[4][4];
+
     public GameJFrame() {
         // 初始化窗口
         initJFrame();
 
         // 初始化菜单
         initJMenuBar();
+        
+        // 初始化数据
+        initData();
 
         // 初始化图片
         initImage();
@@ -18,21 +25,38 @@ public class GameJFrame extends JFrame {
     }
 
     /**
+     * 初始化数据
+     */
+    private void initData() {
+        int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            int index = random.nextInt(arr.length);
+            int temp = arr[i];
+            arr[i] = arr[index];
+            arr[index] = temp;
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            data[i / 4][i % 4] = arr[i];
+        }
+    }
+
+    /**
      * 初始化图片
      */
     private void initImage() {
-        int number = 1;
         // 外循环---行
         for (int i = 0; i < 4; i++) {
             // 内循环---列
             for (int j = 0; j < 4; j++) {
                 // 初始化标签
-                JLabel jLabel = new JLabel(new ImageIcon("puzzle-game/image/animal/animal/" + number + ".jpg"));
+                int number = data[i][j];
+                JLabel jLabel = new JLabel(new ImageIcon("puzzle-game/image/animal/animal8/" + number + ".jpg"));
                 // 设置标签位置
                 jLabel.setBounds(j * 105, i * 105, 105, 105);
                 // 添加标签
                 this.add(jLabel);
-                number++;
             }
         }
     }
