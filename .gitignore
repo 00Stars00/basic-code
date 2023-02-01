@@ -6,3 +6,4 @@
 *.iml
 out
 gen
+/studentsystem/src/META-INF/MANIFEST.MF
