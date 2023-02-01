@@ -1,4 +1,4 @@
-package com.start.a04polymorphismdemo4;
+package com.stars.a04polymorphismdemo4;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

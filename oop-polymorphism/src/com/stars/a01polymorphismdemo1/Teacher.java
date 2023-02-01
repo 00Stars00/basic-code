@@ -1,4 +1,4 @@
-package com.start.a01polymorphismdemo1;
+package com.stars.a01polymorphismdemo1;
 
 public class Teacher extends Person{
     @Override

@@ -1,4 +1,4 @@
-package com.start.test;
+package com.stars.test;
 
 import javax.swing.*;
 

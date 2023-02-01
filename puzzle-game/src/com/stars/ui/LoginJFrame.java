@@ -1,4 +1,4 @@
-package com.start.ui;
+package com.stars.ui;
 
 import javax.swing.*;
 

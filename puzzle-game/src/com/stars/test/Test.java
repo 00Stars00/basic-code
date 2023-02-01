@@ -1,4 +1,4 @@
-package com.start.test;
+package com.stars.test;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ public class Test {
             System.out.print(j + " ");
         }
         System.out.println();
-        
+
         int[][] arr2 = new int[4][4];
         for (int i = 0; i < arr.length; i++) {
             arr2[i / 4][i % 4] = arr[i];
