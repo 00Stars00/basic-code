@@ -58,7 +58,7 @@ public class GameJFrame extends JFrame implements KeyListener {
      */
     private void initImage() {
         // 清空窗口
-        this.removeAll();
+        this.getContentPane().removeAll();
         // 外循环---行
         for (int i = 0; i < 4; i++) {
             // 内循环---列
@@ -163,6 +163,16 @@ public class GameJFrame extends JFrame implements KeyListener {
             case KeyEvent.VK_UP -> {
                 // 上
                 System.out.println("上");
+                if (x > 0) {
+                    data[x][y] = data[x - 1][y];
+                    data[x - 1][y] = 0;
+                    x--;
+                    initImage();
+                }
+            }
+            case KeyEvent.VK_DOWN -> {
+                // 下
+                System.out.println("下");
                 if (x < 3) {
                     data[x][y] = data[x + 1][y];
                     data[x + 1][y] = 0;
@@ -170,35 +180,26 @@ public class GameJFrame extends JFrame implements KeyListener {
                     initImage();
                 }
             }
-            case KeyEvent.VK_DOWN -> {
-                // 下
-                System.out.println("下");
-                if (x > 0) {
-                    data[x][y] = data[x - 1][y];
-                    data[x - 1][y] = 0;
-                    x--;
-                }
-            }
             case KeyEvent.VK_LEFT -> {
                 // 左
                 System.out.println("左");
-                if (y < 3) {
-                    data[x][y] = data[x][y + 1];
-                    data[x][y + 1] = 0;
-                    y++;
+                if (y > 0) {
+                    data[x][y] = data[x][y - 1];
+                    data[x][y - 1] = 0;
+                    y--;
+                    initImage();
                 }
             }
             case KeyEvent.VK_RIGHT -> {
                 // 右
                 System.out.println("右");
-                if (y > 0) {
-                    data[x][y] = data[x][y - 1];
-                    data[x][y - 1] = 0;
-                    y--;
+                if (y < 3) {
+                    data[x][y] = data[x][y + 1];
+                    data[x][y + 1] = 0;
+                    y++;
+                    initImage();
                 }
             }
         }
-        // 重绘
-        //this.repaint();
     }
 }
