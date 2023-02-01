@@ -37,8 +37,8 @@ public class GameJFrame extends JFrame {
         aboutMenu.add(aboutItem);
 
         // 添加菜单
-        this.add(functionMenu);
-        this.add(aboutMenu);
+        jMenuBar.add(functionMenu);
+        jMenuBar.add(aboutMenu);
 
         // 添加菜单栏
         this.setJMenuBar(jMenuBar);
