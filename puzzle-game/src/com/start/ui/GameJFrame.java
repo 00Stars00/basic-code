@@ -22,7 +22,7 @@ public class GameJFrame extends JFrame {
      */
     private void initImage() {
         // 初始化图片
-        ImageIcon imageIcon = new ImageIcon("puzzlegame/image/animal/animal3/3.jpg");
+        ImageIcon imageIcon = new ImageIcon("puzzle-game/image/animal/animal3/3.jpg");
 
         // 初始化标签
         JLabel jLabel = new JLabel(imageIcon);
