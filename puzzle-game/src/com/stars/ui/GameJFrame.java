@@ -60,6 +60,13 @@ public class GameJFrame extends JFrame implements KeyListener {
     private void initImage() {
         // 清空窗口
         this.getContentPane().removeAll();
+
+        // 判断是否胜利
+        if (victory()) {
+            JLabel winJLabel = new JLabel(new ImageIcon("puzzle-game/image/win.png"));
+            winJLabel.setBounds(203, 283, 197, 73);
+            this.getContentPane().add(winJLabel);
+        }
         // 外循环---行
         for (int i = 0; i < 4; i++) {
             // 内循环---列
@@ -157,11 +164,16 @@ public class GameJFrame extends JFrame implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
+        // 判断是否胜利
+        if (victory()) {
+            return;
+        }
+        // 获取按下的键盘码
         int keyCode = e.getKeyCode();
+        // 判断是否按下一键通关
         if (keyCode == KeyEvent.VK_A) {
-            System.out.println("A");
             this.getContentPane().removeAll();
-            JLabel all = new JLabel(new ImageIcon(path+"all.jpg"));
+            JLabel all = new JLabel(new ImageIcon(path + "all.jpg"));
             all.setBounds(84, 134, 420, 420);
             this.getContentPane().add(all);
             // 初始化背景图片
@@ -182,6 +194,11 @@ public class GameJFrame extends JFrame implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent e) {
+        // 判断是否胜利
+        if (victory()) {
+            return;
+        }
+
         // 获取按键
         int keyCode = e.getKeyCode();
         // 判断按键
@@ -230,14 +247,14 @@ public class GameJFrame extends JFrame implements KeyListener {
             case KeyEvent.VK_A -> initImage();
             // 一键还原
             case KeyEvent.VK_W -> {
-                data=new int[][]{
-                        {1,2,3,4},
-                        {5,6,7,8},
-                        {9,10,11,12},
-                        {13,14,15,0}
+                data = new int[][]{
+                        {1, 2, 3, 4},
+                        {5, 6, 7, 8},
+                        {9, 10, 11, 12},
+                        {13, 14, 15, 0}
                 };
-                x=3;
-                y=3;
+                x = 3;
+                y = 3;
                 initImage();
             }
         }
@@ -250,8 +267,8 @@ public class GameJFrame extends JFrame implements KeyListener {
                 {9, 10, 11, 12},
                 {13, 14, 15, 0}
         };
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
                 if (this.data[i][j] != data[i][j]) {
                     return false;
                 }
