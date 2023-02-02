@@ -12,7 +12,6 @@ public class GameJFrame extends JFrame implements KeyListener {
     // 空白块的位置
     int x = 0;
     int y = 0;
-
     String path = "puzzle-game/image/animal/animal8/";
 
     public GameJFrame() {
@@ -242,5 +241,22 @@ public class GameJFrame extends JFrame implements KeyListener {
                 initImage();
             }
         }
+    }
+
+    public boolean victory() {
+        int[][] data = new int[][]{
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 0}
+        };
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (this.data[i][j] != data[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
