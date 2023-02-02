@@ -36,7 +36,6 @@ public class LoginJFrame extends JFrame implements MouseListener {
         // 设置窗口可见
         this.setVisible(true);
     }
-
     private void initView() {
         // 初始化用户名标签
         JLabel usernameLabel = new JLabel(new ImageIcon("puzzle-game/image/login/用户名.png"));
@@ -91,7 +90,6 @@ public class LoginJFrame extends JFrame implements MouseListener {
         this.add(background);
 
     }
-
     /**
      * 初始化窗口
      */
@@ -109,11 +107,9 @@ public class LoginJFrame extends JFrame implements MouseListener {
         // 设置窗口布局
         this.setLayout(null);
     }
-
     public void showJDialog(String content) {
         JOptionPane.showMessageDialog(this, content, "错误", JOptionPane.INFORMATION_MESSAGE);
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         Object source = e.getSource();
@@ -153,7 +149,6 @@ public class LoginJFrame extends JFrame implements MouseListener {
             System.out.println("点击注册");
         }
     }
-
     @Override
     public void mousePressed(MouseEvent e) {
         Object source = e.getSource();
@@ -163,7 +158,6 @@ public class LoginJFrame extends JFrame implements MouseListener {
             register.setIcon(new ImageIcon("puzzle-game/image/login/注册按下.png"));
         }
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
         Object source = e.getSource();
@@ -173,17 +167,14 @@ public class LoginJFrame extends JFrame implements MouseListener {
             register.setIcon(new ImageIcon("puzzle-game/image/login/注册按钮.png"));
         }
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
 
     }
-
     private boolean contains(User userInput) {
         for (User rightUser : users) {
             if (rightUser.getUsername().equals(userInput.getUsername()) && rightUser.getPassword().equals(userInput.getPassword())) {
