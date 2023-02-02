@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class LoginJFrame extends JFrame implements MouseListener {
