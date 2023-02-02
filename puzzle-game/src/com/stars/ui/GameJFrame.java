@@ -13,6 +13,8 @@ public class GameJFrame extends JFrame implements KeyListener {
     int x = 0;
     int y = 0;
 
+    String path = "puzzle-game/image/animal/animal8/";
+
     public GameJFrame() {
         // 初始化窗口
         initJFrame();
@@ -65,7 +67,7 @@ public class GameJFrame extends JFrame implements KeyListener {
             for (int j = 0; j < 4; j++) {
                 // 初始化标签
                 int number = data[i][j];
-                JLabel jLabel = new JLabel(new ImageIcon("puzzle-game/image/animal/animal8/" + number + ".jpg"));
+                JLabel jLabel = new JLabel(new ImageIcon(path + number + ".jpg"));
                 // 设置标签位置
                 jLabel.setBounds(j * 105 + 84, i * 105 + 134, 105, 105);
                 // 添加图片边框
@@ -149,11 +151,36 @@ public class GameJFrame extends JFrame implements KeyListener {
 
     }
 
+    /**
+     * 键盘按下事件
+     *
+     * @param e 事件
+     */
     @Override
     public void keyPressed(KeyEvent e) {
-
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_A) {
+            System.out.println("A");
+            this.getContentPane().removeAll();
+            JLabel all = new JLabel(new ImageIcon(path+"all.jpg"));
+            all.setBounds(84, 134, 420, 420);
+            this.getContentPane().add(all);
+            // 初始化背景图片
+            JLabel background = new JLabel(new ImageIcon("puzzle-game/image/background.png"));
+            // 设置背景图片位置
+            background.setBounds(40, 40, 508, 560);
+            // 添加背景图片
+            this.getContentPane().add(background);
+            // 重新绘制窗口
+            this.getContentPane().repaint();
+        }
     }
 
+    /**
+     * 键盘释放事件
+     *
+     * @param e 事件
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         // 获取按键
@@ -199,6 +226,20 @@ public class GameJFrame extends JFrame implements KeyListener {
                     y++;
                     initImage();
                 }
+            }
+            // 查看原图
+            case KeyEvent.VK_A -> initImage();
+            // 一键还原
+            case KeyEvent.VK_W -> {
+                data=new int[][]{
+                        {1,2,3,4},
+                        {5,6,7,8},
+                        {9,10,11,12},
+                        {13,14,15,0}
+                };
+                x=3;
+                y=3;
+                initImage();
             }
         }
     }
