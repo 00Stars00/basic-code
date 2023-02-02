@@ -2,17 +2,31 @@ package com.stars.ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GameJFrame extends JFrame implements KeyListener {
+public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     // 数据
     int[][] data = new int[4][4];
     // 空白块的位置
     int x = 0;
     int y = 0;
+    // 图片路径
     String path = "puzzle-game/image/animal/animal8/";
+    // 步数
+    int step = 0;
+
+    // 初始化菜单项
+    JMenuItem girl = new JMenuItem("美女");
+    JMenuItem animal = new JMenuItem("动物");
+    JMenuItem sport = new JMenuItem("运动");
+    JMenuItem replayItem = new JMenuItem("重新开始");
+    JMenuItem reLoginItem = new JMenuItem("重新登陆");
+    JMenuItem exitItem = new JMenuItem("退出");
+    JMenuItem aboutItem = new JMenuItem("关于");
 
     public GameJFrame() {
         // 初始化窗口
@@ -48,9 +62,8 @@ public class GameJFrame extends JFrame implements KeyListener {
             if (arr[i] == 0) {
                 x = i / 4;
                 y = i % 4;
-            } else {
-                data[i / 4][i % 4] = arr[i];
             }
+            data[i / 4][i % 4] = arr[i];
         }
     }
 
@@ -67,6 +80,10 @@ public class GameJFrame extends JFrame implements KeyListener {
             winJLabel.setBounds(203, 283, 197, 73);
             this.getContentPane().add(winJLabel);
         }
+        // 初始化步数
+        JLabel stepJLabel = new JLabel("步数：" + step);
+        stepJLabel.setBounds(50, 30, 100, 20);
+        this.getContentPane().add(stepJLabel);
         // 外循环---行
         for (int i = 0; i < 4; i++) {
             // 内循环---列
@@ -101,21 +118,31 @@ public class GameJFrame extends JFrame implements KeyListener {
 
         // 初始化菜单
         JMenu functionMenu = new JMenu("功能");
-        JMenu aboutMenu = new JMenu("关于");
+        JMenu aboutMenu = new JMenu("帮助");
+        JMenu changeImage = new JMenu("更换图片");
 
-        // 初始化菜单项
-        JMenuItem replayItem = new JMenuItem("重新开始");
-        JMenuItem reLoginItem = new JMenuItem("重新登陆");
-        JMenuItem exitItem = new JMenuItem("退出");
-
-        JMenuItem aboutItem = new JMenuItem("关于");
 
         // 添加菜单项
+        changeImage.add(girl);
+        changeImage.add(animal);
+        changeImage.add(sport);
+
+        functionMenu.add(changeImage);
         functionMenu.add(replayItem);
         functionMenu.add(reLoginItem);
         functionMenu.add(exitItem);
 
         aboutMenu.add(aboutItem);
+
+        // 添加事件
+        replayItem.addActionListener(this);
+        reLoginItem.addActionListener(this);
+        exitItem.addActionListener(this);
+        aboutItem.addActionListener(this);
+
+        girl.addActionListener(this);
+        animal.addActionListener(this);
+        sport.addActionListener(this);
 
         // 添加菜单
         jMenuBar.add(functionMenu);
@@ -210,6 +237,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                     data[x][y] = data[x - 1][y];
                     data[x - 1][y] = 0;
                     x--;
+                    step++;
                     initImage();
                 }
             }
@@ -220,6 +248,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                     data[x][y] = data[x + 1][y];
                     data[x + 1][y] = 0;
                     x++;
+                    step++;
                     initImage();
                 }
             }
@@ -230,6 +259,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                     data[x][y] = data[x][y - 1];
                     data[x][y - 1] = 0;
                     y--;
+                    step++;
                     initImage();
                 }
             }
@@ -240,6 +270,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                     data[x][y] = data[x][y + 1];
                     data[x][y + 1] = 0;
                     y++;
+                    step++;
                     initImage();
                 }
             }
@@ -247,12 +278,7 @@ public class GameJFrame extends JFrame implements KeyListener {
             case KeyEvent.VK_A -> initImage();
             // 一键还原
             case KeyEvent.VK_W -> {
-                data = new int[][]{
-                        {1, 2, 3, 4},
-                        {5, 6, 7, 8},
-                        {9, 10, 11, 12},
-                        {13, 14, 15, 0}
-                };
+                data = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
                 x = 3;
                 y = 3;
                 initImage();
@@ -261,12 +287,7 @@ public class GameJFrame extends JFrame implements KeyListener {
     }
 
     public boolean victory() {
-        int[][] data = new int[][]{
-                {1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12},
-                {13, 14, 15, 0}
-        };
+        int[][] data = new int[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
                 if (this.data[i][j] != data[i][j]) {
@@ -275,5 +296,49 @@ public class GameJFrame extends JFrame implements KeyListener {
             }
         }
         return true;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // 获取事件源
+        Object source = e.getSource();
+        // 判断事件源
+        if (source == replayItem) {
+            // 重新开始
+            replay();
+        } else if (source == reLoginItem) {
+            // 重新登录
+            this.dispose();
+            new LoginJFrame();
+        } else if (source == exitItem) {
+            // 退出程序
+            System.exit(0);
+        } else if (source == aboutItem) {
+            // 关于
+            JOptionPane.showMessageDialog(this, "拼图游戏单机版 V1.0", "关于", JOptionPane.INFORMATION_MESSAGE);
+        } else if (source == girl) {
+            randomPath(13, "girl");
+            replay();
+        } else if (source == animal) {
+            randomPath(8, "animal");
+            replay();
+        } else if (source == sport) {
+            randomPath(10, "sport");
+            replay();
+        }
+    }
+
+    /**
+     * 重新开始
+     */
+    private void replay() {
+        step = 0;
+        initData();
+        initImage();
+    }
+
+    private void randomPath(int num, String name) {
+        Random random = new Random();
+        path = "puzzle-game/image/" + name + "/" + name + (random.nextInt(num) + 1) + "/";
     }
 }
