@@ -1,6 +1,8 @@
+package code04;
+
 import java.util.Scanner;
 
-public class code04 {
+public class Main {
     public static void main(String[] args) {
         // 跟奥巴马一起画方块
         Scanner scanner = new Scanner(System.in);

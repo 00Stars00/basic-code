@@ -1,6 +1,8 @@
+package code03;
+
 import java.util.Scanner;
 
-public class code03 {
+public class Main {
     public static void main(String[] args) {
         // 计算阶乘和
         Scanner scanner = new Scanner(System.in);

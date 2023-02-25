@@ -1,6 +1,8 @@
+package code05;
+
 import java.util.Scanner;
 
-public class code05 {
+public class Main {
     public static void main(String[] args) {
         // 计算天数
         Scanner scanner = new Scanner(System.in);

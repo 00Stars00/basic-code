@@ -1,6 +1,8 @@
+package code02;
+
 import java.util.Scanner;
 
-public class code02 {
+public class Main {
     public static void main(String[] args) {
         // 计算指数
         Scanner scanner = new Scanner(System.in);

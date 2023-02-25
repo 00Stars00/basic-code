@@ -1,6 +1,8 @@
+package code01;
+
 import java.util.Scanner;
 
-public class code01 {
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int[] arr = new int[3];
