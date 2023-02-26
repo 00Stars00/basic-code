@@ -4,14 +4,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
-        String num = "";
+        String num;
         StringBuilder A = new StringBuilder();
         StringBuilder B = new StringBuilder();
         Scanner scanner = new Scanner(System.in);
         num = scanner.nextLine();
-        String[] nums = num.split(" ");
         int i = 0;
         while (num.charAt(i) != ' ') {
             A.append(num.charAt(i));
